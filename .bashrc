@@ -137,12 +137,59 @@ alias game="cd /home/andre/github/peci/server-game"
 alias rest="cd /home/andre/github/peci/rest-api-le/rest-api-framework"
 alias beb="cd /home/andre/github/bomebarato/bom-e-barato"
 alias mect="cd /home/andre/github/mect_1ano"
-alias ic="cd /home/andre/github/mect_1ano/IC"
-alias ac="cd /home/andre/github/mect_1ano/AC"
-alias mdrs="cd /home/andre/github/mect_1ano/MDRS"
-alias aad="cd /home/andre/github/mect_1ano/AAD"
-alias cm="cd /home/andre/github/mect_1ano/CM"
+alias sd="cd /home/andre/github/mect_1ano/SD"
+alias ase="cd /home/andre/github/mect_1ano/ASE"
+alias rsa="cd /home/andre/github/mect_1ano/RSA"
+alias src="cd /home/andre/github/mect_1ano/SRC"
+alias egs="cd /home/andre/github/mect_1ano/EGS"
 alias neect="cd /home/andre/github/neect"
+alias nap="cd /home/andre/nap"
+
+# variable that associates string to ip
+declare -A vm
+
+# set aliases
+alias nap-apu4="snob5g-apu4.nap.av.it.pt"
+alias nap-apu5="snob5g-apu5.nap.av.it.pt"
+alias nap-apu7="snob5g-apu7.nap.av.it.pt"
+alias nap-apu8="snob5g-apu8.nap.av.it.pt"
+alias nap-apu9="snob5g-apu9.nap.av.it.pt"
+
+# add ips to vm_list
+# my personal vms
+vm["rpi4"]="andrerpi4.ddns.net"
+# nap vms
+vm["nap-apu4"]="snob5g-apu4.nap.av.it.pt"
+vm["nap-apu5"]="snob5g-apu5.nap.av.it.pt"
+vm["nap-apu7"]="snob5g-apu7.nap.av.it.pt"
+vm["nap-apu8"]="snob5g-apu8.nap.av.it.pt"
+vm["nap-apu9"]="snob5g-apu9.nap.av.it.pt"
+vm["nap-onos"]="atcll-onos.av.it.pt"
+vm["nap-pica8"]="10.0.23.250"
+
+connect() {
+  # use the ip of the vm
+  ip=${vm[$1]-$1}
+
+  # go to .vm-secrets and search for the ip
+  # if found, use the credentials to ssh into the vm
+  # if not found, print error message
+  echo "Trying to connect to $ip"
+  if grep -q $ip ~/.vm-secrets; then
+    user=$(grep $ip ~/.vm-secrets | cut -d: -f2)
+    pass=$(grep $ip ~/.vm-secrets | cut -d: -f3)
+    
+    sshpass -p $pass ssh $user@$ip
+  else
+    # ask for username and read it in the same line
+    read -p "Username: " user
+    # ask for password and read it in the same line
+    read -s -p "Password: " pass
+    # try to connect
+    echo ''
+    sshpass -p $pass ssh $user@$ip
+  fi
+}
 
 alias va="source venv/bin/activate"
 alias vd="deactivate"
@@ -152,8 +199,8 @@ alias quartus="/home/andre/intelFPGA_lite/20.1/quartus/bin/quartus"
 # Add this line at the end of .bashrc:
 [[ ${BLE_VERSION-} ]] && ble-attach
 
-
 # Load Angular CLI autocompletion.
 source <(ng completion script)
 
-export QSYS_ROOTDIR="/home/andre/intelFPGA_lite/20.1/quartus/sopc_builder/bin"
+export PATH=$PATH:/home/andre/.jdks/openjdk-19.0.2/bin
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
