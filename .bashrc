@@ -142,6 +142,7 @@ alias ase="cd /home/andre/github/mect_1ano/ASE"
 alias rsa="cd /home/andre/github/mect_1ano/RSA"
 alias src="cd /home/andre/github/mect_1ano/SRC"
 alias egs="cd /home/andre/github/mect_1ano/EGS"
+alias mixit="cd /home/andre/github/EGS/social-api"
 alias neect="cd /home/andre/github/neect"
 alias nap="cd /home/andre/nap"
 
@@ -166,6 +167,8 @@ vm["nap-apu8"]="snob5g-apu8.nap.av.it.pt"
 vm["nap-apu9"]="snob5g-apu9.nap.av.it.pt"
 vm["nap-onos"]="atcll-onos.av.it.pt"
 vm["nap-pica8"]="10.0.23.250"
+vm["nap-2ndpica8"]="10.0.22.113"
+vm["dlink"]="10.0.22.117"
 
 connect() {
   # use the ip of the vm
